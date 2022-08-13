@@ -21,7 +21,8 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         user_profile = Profile(user=instance)   # create a new profile and set the user to the user that we are saving
         user_profile.save()     # Save the profile for it to have an id in the database
-        user_profile.follows.set([instance.profile.id])  # set the follows property of the profile to the current user instance
+        user_profile.follows.add(instance.profile.id)
+        # user_profile.follows.set([instance.profile.id])  # set the follows property of the profile to the current user instance
         user_profile.save()  # Save the profile to the database
 
 
