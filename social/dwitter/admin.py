@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
 
+from dwitter.models import Profile
+
 
 class UserAdmin(admin.ModelAdmin):
     model = User
@@ -10,3 +12,4 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
+admin.site.register(Profile)
