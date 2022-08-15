@@ -8,7 +8,6 @@
     <h1 class="title is-1">
         {{profile.user.username|upper}}'s Dweets
     </h1>
-    </div>
     <form method="post">
         {% csrf_token %}
         <div class="buttons has-addons">
@@ -21,6 +20,16 @@
             {% endif %}
         </div>
     </form>
+    </div>
+    <div class="content">
+        {% for dweet in profile.user.dweets.all %}
+            <div class="box">
+                {{ dweet.body }}
+                <spam class="is-small has-text-grey-light">({{ dweet.created_at }})</spam>
+            </div>
+        {% endfor %}
+
+    </div>
 
 </div>
 
