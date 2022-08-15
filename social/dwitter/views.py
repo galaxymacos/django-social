@@ -4,7 +4,7 @@ from dwitter.models import Profile
 
 
 def dashboard(request):
-    return render(request, "base.html")
+    return render(request, "dashboard.html")
 
 
 def profile_list(request):
