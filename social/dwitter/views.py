@@ -1,11 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from dwitter.forms import DweetForm
 from dwitter.models import Profile
 
 
 def dashboard(request):
-    form = DweetForm()
+    form = DweetForm(request.POST or None)  # instantiate an bounded form if we have POST data
+    if request.method == "POST":
+        if form.is_valid():
+            dweet = form.save(commit=False)
+            dweet.user = request.user
+            dweet.save()
+            return redirect('dwitter:dashboard')    # reset the request.method to get to prevent double posts
+        else:
+            # if the form is not valid, we will resubmit the form with the post data (that way the form
+            # can display error message because we render the form {{ form.is_p }}
+            pass
     return render(request, "dashboard.html", {"form": form})
 
 
