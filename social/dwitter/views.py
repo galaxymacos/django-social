@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from dwitter.forms import DweetForm
-from dwitter.models import Profile
+from dwitter.models import Profile, Dweet
 
 
 def dashboard(request):
@@ -16,7 +16,8 @@ def dashboard(request):
             # if the form is not valid, we will resubmit the form with the post data (that way the form
             # can display error message because we render the form {{ form.is_p }}
             pass
-    return render(request, "dashboard.html", {"form": form})
+    followed_dweets = Dweet.objects.filter(user__profile__in=request.user.profile.follows.all()).order_by("-created_at")
+    return render(request, "dashboard.html", {"form": form, "dweets": followed_dweets})
 
 
 def profile_list(request):
